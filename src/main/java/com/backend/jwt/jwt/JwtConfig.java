@@ -8,7 +8,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * The JwtConfig Class implements the JWT Configuration
+ * The JwtConfig Class is a configuration of properties that are grouped together.
+ * and make use of the @ConfigurationProperties annotation,
+ * which will map these property hierarchies into Java objects graphs
+ * useful feature for externalized configuration and easy access
+ * to properties defined in **properties files**
  **/
 
 @NoArgsConstructor

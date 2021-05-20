@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * The UserController Class implements an Rest Controller that
  * handles User requests.
+ * Endpoints can be added as needed.
  **/
 
 

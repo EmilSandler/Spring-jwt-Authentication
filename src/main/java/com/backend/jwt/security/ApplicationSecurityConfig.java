@@ -65,4 +65,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(userService);
         return provider;
     }
+
+    private static int calculateSum(int n){
+        String test = "sosomosh1232";
+        return 0;
+    }
 }

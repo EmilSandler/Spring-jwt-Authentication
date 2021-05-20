@@ -15,10 +15,7 @@ import java.util.Set;
 
 
 /**
- *
- *
- *
- *
+ *User class represents a system user
  **/
 
 
