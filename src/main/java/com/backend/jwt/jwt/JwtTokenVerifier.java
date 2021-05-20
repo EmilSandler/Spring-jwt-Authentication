@@ -22,6 +22,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
+/**
+ * JwtTokenVerifier Class is a Filter for JWT token verifier,
+ * the filter invokes once per request within a single request thread.
+ *
+ **/
+
+
+
 public class JwtTokenVerifier extends OncePerRequestFilter {
 
     private final SecretKey secretKey;
@@ -32,7 +41,10 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
         this.jwtConfig = jwtConfig;
     }
 
-
+    /**
+     * Same contract as for doFilter, but guaranteed to be just invoked once per request within a single request thread.
+     *
+     **/
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
@@ -54,6 +66,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
                     .setSigningKey(secretKey)
                     .build()
                     .parseClaimsJws(token);
+
             Claims body = claimsJws.getBody();
 
             String username = body.getSubject();
@@ -74,7 +87,11 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
             throw new IllegalStateException(String.format("Token %s cannot be trusted", token));
         }
 
-        //Passed down the request and responce to the next filter.
+        /**
+         *Causes the next filter in the chain to be invoked,
+         *or if the calling filter is the last filter in the chain,
+         *causes the resource at the end of the chain to be invoked.
+         * **/
         filterChain.doFilter(request, response);
     }
 }
