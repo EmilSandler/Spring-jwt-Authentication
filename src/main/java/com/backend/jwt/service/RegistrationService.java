@@ -7,6 +7,11 @@ import com.backend.jwt.registration.RegistrationRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * The RegistrationService class handles all Registration related requests.
+ **/
+
+
 @Service
 @AllArgsConstructor
 public class RegistrationService {

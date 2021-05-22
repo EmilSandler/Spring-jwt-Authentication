@@ -29,6 +29,7 @@ public class RegistrationController {
      * This is the main method which receives a POST
      * request for the registration
      * @param request is a RegistrationRequest object.
+     * @see RegistrationRequest class for more info.
      **/
     @PostMapping
     public String register(@RequestBody RegistrationRequest request){

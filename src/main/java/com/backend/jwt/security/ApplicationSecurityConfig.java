@@ -18,6 +18,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.crypto.SecretKey;
 
+
+/**
+ * ApplicationSecurityConfig class is web security configuration class.
+ **/
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -49,7 +54,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/registration/**").permitAll()
                 .anyRequest()
                 .authenticated();
-
     }
 
 

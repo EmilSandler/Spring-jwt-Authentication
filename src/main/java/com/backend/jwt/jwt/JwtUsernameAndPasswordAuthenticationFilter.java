@@ -18,7 +18,9 @@ import java.time.LocalDate;
 import java.util.Date;
 
 
-
+/**
+ *
+ **/
 
 
 public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -34,18 +36,21 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         this.secretKey = secretKey;
     }
 
-
+    /**
+     * attemptAuthentication invoked on Login, its authenticating username and password
+     * using the custom Authentication provider DaoAuthenticationProvider configured
+     * in the ApplicationSecurityConfig configuration class.
+     **/
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-
         try {
             UsernameAndPasswordAuthenticationRequest authenticationRequest =
                     new ObjectMapper().readValue(request.getInputStream(), UsernameAndPasswordAuthenticationRequest.class);
+
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     authenticationRequest.getUsername(),
                     authenticationRequest.getPassword()
             );
-
             return authenticationManager.authenticate(authentication);
 
         }catch (IOException e){
@@ -53,12 +58,16 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         }
     }
 
+
+    /**
+     * If the Authentication is successful, successfulAuthentication is invoked
+     * and JWT is created and added to the response header.
+     **/
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
-
 
         String token = Jwts.builder()
                 .setSubject(authResult.getName())
@@ -68,5 +77,11 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .signWith(secretKey)
                 .compact();
         response.addHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + token);
+    }
+
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        super.unsuccessfulAuthentication(request, response, failed);
     }
 }
